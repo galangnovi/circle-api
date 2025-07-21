@@ -16,12 +16,12 @@ datasource db {
 
 model users {
   id             Int       @id @default(autoincrement())
-  username       String
+  username       String @unique
   full_name      String
-  email          String
+  email          String @unique
   password       String
-  photo_profile  String
-  bio            String
+  photo_profile  String @default("default.jpg")
+  bio            String @default("")
   created_at     DateTime  @default(now())
   created_by     Int?
   updated_at     DateTime  @updatedAt
