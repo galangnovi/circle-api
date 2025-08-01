@@ -1,0 +1,316 @@
+openapi: 3.0.0
+info:
+  title: Circle-App
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /api/v1/auth/login:
+    post:
+      tags:
+        - default
+      summary: Login User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                identifier: galang@gmail.com
+                password: '123456'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/register:
+    post:
+      tags:
+        - default
+      summary: Register User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username: rendi
+                name: rendi Suroto
+                email: rendi@gmail.com
+                password: '123456'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/logout:
+    get:
+      tags:
+        - default
+      summary: Logout User
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/thread:
+    get:
+      tags:
+        - default
+      summary: Get All Threads
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: '25'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/thread:
+    post:
+      tags:
+        - default
+      summary: Add New-Threads
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: coba lagi nih...
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/thread/image:
+    get:
+      tags:
+        - default
+      summary: Get Image in Thread
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/thread/user:
+    get:
+      tags:
+        - default
+      summary: Get Content in Thread
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/thread/9:
+    get:
+      tags:
+        - default
+      summary: Get detail Thread By Id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/reply:
+    post:
+      tags:
+        - default
+      summary: Add New-Reply
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: oke
+                image:
+                  type: string
+                  format: binary
+      parameters:
+        - name: thread_id
+          in: query
+          schema:
+            type: integer
+          example: '2'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - default
+      summary: Get All Replies in Thread
+      parameters:
+        - name: thread_id
+          in: query
+          schema:
+            type: integer
+          example: '10'
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: '5'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/myProfile/edit:
+    put:
+      tags:
+        - default
+      summary: Edit Profile
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                photo_profile:
+                  type: string
+                  format: binary
+                cover_Photo:
+                  type: string
+                email:
+                  type: string
+                username:
+                  type: string
+                fullname:
+                  type: string
+                bio:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/search:
+    get:
+      tags:
+        - default
+      summary: Search User by name or username
+      parameters:
+        - name: keyword
+          in: query
+          schema:
+            type: string
+          example: sinta
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/recomendation:
+    get:
+      tags:
+        - default
+      summary: Get Recomendations User
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/follows:
+    get:
+      tags:
+        - default
+      summary: Get Followers or Following
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+          description: followers | following
+          example: followers
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - default
+      summary: Follow User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                followed_id: 9
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - default
+      summary: UnFollow User
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/thread/like/1:
+    post:
+      tags:
+        - default
+      summary: Like Thread
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: '"{\r\n    \"followed_id\": 9\r\n}"'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/thread/unLike/1:
+    delete:
+      tags:
+        - default
+      summary: unLike Thread
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/reply/like/9:
+    post:
+      tags:
+        - default
+      summary: Like Reply
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/reply/unLike/9:
+    delete:
+      tags:
+        - default
+      summary: New Request
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

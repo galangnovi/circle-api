@@ -11,7 +11,7 @@ export function authenticate(req:Request, res:Response, next:NextFunction) {
         const userToken = verifyToken(token);
         const userSession = (req as any).session.user
         if(!userSession) throw new Error ("Kamu belum login atau sudah logout")
-        if(userSession.id !== userToken.id) 
+        if(userSession.user_id !== userToken.id) 
             throw new Error("user token tidak cocok");
          (req as any).user = userSession;
         next()

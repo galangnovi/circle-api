@@ -3,10 +3,33 @@ import corsMiddleware from "./middlewares/cors"
 import session from "express-session"
 import cookieParser from "cookie-parser";
 import auth from "./routes/auth-login"
+import profile from "./routes/profile"
+import threads from "./routes/threads"
+import reply from "./routes/replies"
+import like from "./routes/likes"
+import follows from "./routes/follows"
+import search from "./routes/user"
+import path from "path"
+import { createServer } from 'http'
+import { Server } from 'socket.io'
+import { setupSwagger } from "./swagger/swagger";
 
 
 const app = express()
 const PORT =3000
+
+const httpServer = createServer(app)
+const io = new Server(httpServer, {
+  cors: {
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST'],
+  },
+})
+
+
+// Setup swagger docs at /docs
+setupSwagger(app);
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -25,8 +48,27 @@ app.use(session({
 }));
 
 app.use("/api/v1", auth)
+app.use("/api/v1", threads)
+app.use("/api/v1", profile)
+app.use("/api/v1", reply)
+app.use("/api/v1", like)
+app.use("/api/v1", follows)
+app.use("/api/v1", search)
 
+// / 👇 Serve file statis dari src/uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.listen(PORT, () => {
+// Notify all clients when a thread is created
+export const notifyNewThread = (thread: any) => {
+  io.emit('new-thread', thread)
+}
+
+export const notifyNewReply = (reply: any) => {
+  io.emit('new-reply', reply)
+}
+
+httpServer.listen(PORT, () => {
     console.log(`🍄 server berjalan di http://localhost:${PORT}`)
 })
+
+export default app
