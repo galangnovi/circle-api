@@ -1,12 +1,8 @@
 import multer from "multer"
 import path from "path"
+import {storage} from "./cloudinary"
 
-const storage = multer.diskStorage({
-    destination: "src/uploads",
-    filename: (req, file, cb) =>{
-        cb(null, `${Date.now()}-${file.originalname}` )
-    }
-})
+
 
 export const upload = multer({
     storage,

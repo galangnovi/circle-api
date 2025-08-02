@@ -56,14 +56,13 @@ export const handlerAddNewThread = async (req:Request, res:Response) =>{
     try{
         const created_by = (req as any).session.user.user_id
         const {content} = req.body
-        const image = req.file?.filename ?? null
+        const image = req.file?.path ?? null
 
         const result = await addThreads(created_by, content, image)
         notifyNewThread(result)
 
         if (image) {
-        const imagePath = path.join(__dirname, '..', 'uploads', image)
-        await addImageJob(imagePath)
+        await addImageJob(image)
         }
 
     return res.status(200).json({

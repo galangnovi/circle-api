@@ -33,24 +33,18 @@ export const handlerAllReplies = async (req:Request, res:Response) => {
 
 
 export const handlerAddNewReply = async (req:Request, res:Response) =>{
-    console.log("sip")
-    console.log("🧪 user session:", (req as any).session.user);
-    console.log("ISI REQ.BODY:", req.body);
-    console.log("ISI REQ.FILE:", req.file);
     try{
-        console.log(req.body)
         const user_id = (req as any).session.user.user_id
         if(!user_id) throw new Error ("user tidak ditemukan")
         const thread_id = Number(req.query.thread_id)
         const content = req.body.content
-        const image = req.file?.filename ?? null
+        const image = req.file?.path ?? null
 
         const result = await addreplies(user_id, thread_id, content, image)
         notifyNewReply(result)
 
         if (image) {
-        const imagePath = path.join(__dirname, '..', 'uploads', image)
-        await addImageJob(imagePath)
+        await addImageJob(image)
         }
 
     return res.status(200).json({
