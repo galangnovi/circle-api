@@ -37,13 +37,6 @@ export const handlerEditProfile = async (req:Request, res:Response) => {
         const photo_profile = files['photo_profile']?.[0]?.filename ?? null;
         const cover_Photo = files['cover_Photo']?.[0]?.filename ?? null;
 
-        if (files['photo_profile']?.[0]?.path) {
-            await addImageJob(files['photo_profile'][0].path);
-        }
-        if (files['cover_Photo']?.[0]?.path) {
-            await addImageJob(files['cover_Photo'][0].path);
-        }        
-
         const result = await editProfile(user_id, email, username, full_name, bio, photo_profile, cover_Photo)
         return res.status(200).json({
             code: 200,
