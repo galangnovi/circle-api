@@ -67,7 +67,7 @@ export const notifyNewReply = (reply: any) => {
   io.emit('new-reply', reply)
 }
 
-httpServer.listen(PORT, () => {
+httpServer.listen(process.env.PORT || PORT, () => {
     console.log(`🍄 server berjalan di http://localhost:${PORT}`)
 })
 
