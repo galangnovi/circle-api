@@ -23,10 +23,10 @@ export const handlerLoginUser = async (req:Request, res:Response) =>{
 
         res.cookie("token", match.token, {
             httpOnly: true,
-            secure: false,
-            sameSite: "lax",  
-            maxAge: 1000 *60 *60 *2 //2 jam
-        })
+            secure: process.env.NODE_ENV === "production", // true di Railway
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+            maxAge: 1000 * 60 * 60 * 2, // 2 jam
+        });
     
         return res.status(200).json({
             code: 200,
