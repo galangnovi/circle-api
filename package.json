@@ -6,7 +6,9 @@
     "test": "jest",
     "dev": "ts-node-dev src/app.ts",
     "worker": "ts-node src/workers/imageWorkers.ts",
-    "redis": "docker start redis"
+    "redis": "docker start redis",
+    "build": "tsc",
+    "start": "node build/server.js"
   },
   "prisma": {
     "seed": "ts-node-dev src/prisma/seed.ts"
