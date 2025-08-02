@@ -13,6 +13,7 @@ import path from "path"
 import { createServer } from 'http'
 import { Server } from 'socket.io'
 import { setupSwagger } from "./swagger/swagger";
+import cookieSession from "cookie-session";
 import "./workers/imageWorkers"
 
 
@@ -38,16 +39,19 @@ app.use(express.urlencoded({ extended: true }))
 app.use(corsMiddleware)
 app.use(cookieParser())
 
-app.use(session({
-  secret: process.env.SESSION_SECRET || "rahasia_sesi",
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
+
+app.use(
+  cookieSession({
+    name: "session",
+    secret: process.env.SESSION_SECRET!,
+    maxAge: 1000 * 60 * 60 * 2,
+    sameSite: "none",
+    secure: true,
     httpOnly: true,
-    secure: false, 
-    maxAge: 1000 * 60 * 60 * 2, 
-  },
-}));
+  })
+);
+
+
 
 app.use("/api/v1", auth)
 app.use("/api/v1", threads)

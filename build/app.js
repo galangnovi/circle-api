@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.notifyNewReply = exports.notifyNewThread = void 0;
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("./middlewares/cors"));
-const express_session_1 = __importDefault(require("express-session"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const auth_login_1 = __importDefault(require("./routes/auth-login"));
 const profile_1 = __importDefault(require("./routes/profile"));
@@ -19,6 +18,7 @@ const path_1 = __importDefault(require("path"));
 const http_1 = require("http");
 const socket_io_1 = require("socket.io");
 const swagger_1 = require("./swagger/swagger");
+const cookie_session_1 = __importDefault(require("cookie-session"));
 require("./workers/imageWorkers");
 const app = (0, express_1.default)();
 app.set('trust proxy', 1);
@@ -35,15 +35,13 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(cors_1.default);
 app.use((0, cookie_parser_1.default)());
-app.use((0, express_session_1.default)({
-    secret: process.env.SESSION_SECRET || "rahasia_sesi",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        httpOnly: true,
-        secure: false,
-        maxAge: 1000 * 60 * 60 * 2,
-    },
+app.use((0, cookie_session_1.default)({
+    name: "session",
+    secret: process.env.SESSION_SECRET,
+    maxAge: 1000 * 60 * 60 * 2,
+    sameSite: "none",
+    secure: true,
+    httpOnly: true,
 }));
 app.use("/api/v1", auth_login_1.default);
 app.use("/api/v1", threads_1.default);
