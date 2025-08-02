@@ -21,11 +21,11 @@ function password(pass) {
 }
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield client_1.prisma.users.deleteMany();
         yield client_1.prisma.threads.deleteMany();
         yield client_1.prisma.following.deleteMany();
         yield client_1.prisma.likes.deleteMany();
         yield client_1.prisma.replies.deleteMany();
+        yield client_1.prisma.users.deleteMany();
         const user1 = yield client_1.prisma.users.create({
             data: { username: "Galang", full_name: "Galang Anggara", email: "galang@gmail.com", password: yield password("123456"), bio: "aku suka makan" },
         });

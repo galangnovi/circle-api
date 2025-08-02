@@ -26,7 +26,7 @@ const PORT = 3000;
 const httpServer = (0, http_1.createServer)(app);
 const io = new socket_io_1.Server(httpServer, {
     cors: {
-        origin: 'http://localhost:5173',
+        origin: 'http://localhost:5174',
         methods: ['GET', 'POST'],
     },
 });

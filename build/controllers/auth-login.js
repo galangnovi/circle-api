@@ -30,9 +30,9 @@ const handlerLoginUser = (req, res) => __awaiter(void 0, void 0, void 0, functio
         };
         res.cookie("token", match.token, {
             httpOnly: true,
-            secure: false,
-            sameSite: "lax",
-            maxAge: 1000 * 60 * 60 * 2 //2 jam
+            secure: true,
+            sameSite: "none",
+            maxAge: 1000 * 60 * 60 * 2,
         });
         return res.status(200).json({
             code: 200,

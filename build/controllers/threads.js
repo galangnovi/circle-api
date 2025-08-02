@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.handlerUserThreads = exports.handlerImageThreads = exports.handlerAddNewThread = exports.handlerThreadsDetail = exports.handlerAllThreads = void 0;
 const threads_1 = require("../services/threads");
 const app_1 = require("../app");
+const imageQueue_1 = require("../queues/imageQueue");
 const handlerAllThreads = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user_id = req.session.user.user_id;
@@ -70,9 +71,9 @@ const handlerAddNewThread = (req, res) => __awaiter(void 0, void 0, void 0, func
         const image = (_b = (_a = req.file) === null || _a === void 0 ? void 0 : _a.path) !== null && _b !== void 0 ? _b : null;
         const result = yield (0, threads_1.addThreads)(created_by, content, image);
         (0, app_1.notifyNewThread)(result);
-        // if (image) {
-        // await addImageJob(image)
-        // }
+        if (image) {
+            yield (0, imageQueue_1.addImageJob)(image);
+        }
         return res.status(200).json({
             code: 200,
             status: "success",

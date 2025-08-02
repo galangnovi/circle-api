@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const cors_1 = __importDefault(require("cors"));
 const corsMiddleware = (0, cors_1.default)({
-    origin: "http://localhost:5173",
-    credentials: true
+    origin: ["http://localhost:5174", "https://circle-ui-railway-url.app"], // ganti sesuai frontend kamu
+    credentials: true,
 });
 exports.default = corsMiddleware;
