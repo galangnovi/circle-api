@@ -21,6 +21,7 @@ const socket_io_1 = require("socket.io");
 const swagger_1 = require("./swagger/swagger");
 require("./workers/imageWorkers");
 const app = (0, express_1.default)();
+app.set('trust proxy', 1);
 const PORT = 3000;
 const httpServer = (0, http_1.createServer)(app);
 const io = new socket_io_1.Server(httpServer, {
