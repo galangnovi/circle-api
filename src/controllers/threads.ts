@@ -61,9 +61,9 @@ export const handlerAddNewThread = async (req:Request, res:Response) =>{
         const result = await addThreads(created_by, content, image)
         notifyNewThread(result)
 
-        // if (image) {
-        // await addImageJob(image)
-        // }
+        if (image) {
+        await addImageJob(image)
+        }
 
     return res.status(200).json({
             code: 200,
