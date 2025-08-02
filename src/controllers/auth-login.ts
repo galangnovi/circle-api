@@ -75,8 +75,8 @@ export const handlerRegisterUser = async (req:Request, res:Response) =>{
 }
 
 export const logout = (req: Request, res: Response) => {
-  req.session.destroy(() => {
-    res.clearCookie("token");
+    res.clearCookie("session"); // nama cookie-nya sesuai `cookieSession` config
+    res.clearCookie("token")
     res.json({ message: "Logout berhasil" });
-  });
+  
 };
