@@ -23,7 +23,7 @@ const PORT =3000
 const httpServer = createServer(app)
 const io = new Server(httpServer, {
   cors: {
-    origin: 'http://localhost:5174',
+    origin: 'https://mycircle.railway.internal',
     methods: ['GET', 'POST'],
   },
 })
