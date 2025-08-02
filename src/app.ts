@@ -1,6 +1,5 @@
 import  express from "express";
 import corsMiddleware from "./middlewares/cors"
-import session from "express-session"
 import cookieParser from "cookie-parser";
 import auth from "./routes/auth-login"
 import profile from "./routes/profile"

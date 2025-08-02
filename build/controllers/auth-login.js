@@ -80,7 +80,7 @@ const handlerRegisterUser = (req, res) => __awaiter(void 0, void 0, void 0, func
 });
 exports.handlerRegisterUser = handlerRegisterUser;
 const logout = (req, res) => {
-    res.clearCookie("session"); // nama cookie-nya sesuai `cookieSession` config
+    req.session = null; // nama cookie-nya sesuai `cookieSession` config
     res.clearCookie("token");
     res.json({ message: "Logout berhasil" });
 };
