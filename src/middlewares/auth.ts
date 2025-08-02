@@ -3,7 +3,7 @@ import { verifyToken } from "../utils/jwt-utils";
 
 export function authenticate(req:Request, res:Response, next:NextFunction) {
     const token = req.cookies.token;
-    console.log(req.cookies)
+    console.log(req.cookies.token)
 
     console.log(req.session)
     if(!token){
