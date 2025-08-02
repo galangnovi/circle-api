@@ -5,7 +5,7 @@ export function authenticate(req:Request, res:Response, next:NextFunction) {
     const token = req.cookies.token;
     console.log(req.cookies.token)
 
-    console.log(req.session)
+    console.log("di middleware", (req as any).session.user)
     if(!token){
         res.status(401).json({message:"Unauthorized"});
         return
