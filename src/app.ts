@@ -23,7 +23,7 @@ const PORT =3000
 const httpServer = createServer(app)
 const io = new Server(httpServer, {
   cors: {
-    origin: 'https://mycircle.railway.internal',
+    origin: 'https://mycircle-media.vercel.app',
     methods: ['GET', 'POST'],
   },
 })
