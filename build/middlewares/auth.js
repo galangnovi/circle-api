@@ -4,6 +4,8 @@ exports.authenticate = authenticate;
 const jwt_utils_1 = require("../utils/jwt-utils");
 function authenticate(req, res, next) {
     const token = req.cookies.token;
+    console.log(req.cookies.token);
+    console.log(req.session);
     if (!token) {
         res.status(401).json({ message: "Unauthorized" });
         return;
