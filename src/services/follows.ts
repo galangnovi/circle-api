@@ -80,7 +80,7 @@ export async function getFollowing (user_id:number) {
         id: following.following.id,
         username: following.following.username,
         name: following.following.full_name,
-        avatar: `http://localhost:3000/uploads/${encodeURIComponent(following.following.photo_profile)}`,
+        avatar: following.following.photo_profile,
         is_following: true
         }));
 
