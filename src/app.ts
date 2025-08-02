@@ -13,6 +13,7 @@ import path from "path"
 import { createServer } from 'http'
 import { Server } from 'socket.io'
 import { setupSwagger } from "./swagger/swagger";
+import "./workers/imageWorkers"
 
 
 const app = express()
