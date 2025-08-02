@@ -10,7 +10,7 @@ cloudinary.config({
 export const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: 'uploads', // nama folder di Cloudinary
+    folder: 'uploads',
     allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'JPG', 'JPEG', 'PNG', 'WEBP'],
   } as any,
 });
