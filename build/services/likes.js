@@ -8,12 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.likeThreads = likeThreads;
 exports.likereply = likereply;
 exports.DeleteLikeThreads = DeleteLikeThreads;
 exports.DeleteLikeReply = DeleteLikeReply;
 const client_1 = require("../prisma/client");
+const redis_1 = __importDefault(require("../utils/redis"));
+const getCacheKey = (user_id) => `my_threads:${user_id}`;
 function likeThreads(user_id, thread_id) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -26,6 +31,18 @@ function likeThreads(user_id, thread_id) {
             });
             if (!liked)
                 throw new Error("invalid like content");
+            const cacheKey = getCacheKey(user_id);
+            const cached = yield redis_1.default.get(cacheKey);
+            if (cached) {
+                const parsed = JSON.parse(cached); // return hasil cache
+                const updated = parsed.map((thread) => {
+                    if (thread.id === thread_id) {
+                        return Object.assign(Object.assign({}, thread), { likes_count: thread.likes_count + 1, isLiked: true });
+                    }
+                    return thread;
+                });
+                yield redis_1.default.set(cacheKey, JSON.stringify(updated), "EX", 60);
+            }
             return;
         }
         catch (err) {
@@ -69,6 +86,18 @@ function DeleteLikeThreads(user_id, thread_id) {
             });
             if (!liked)
                 throw new Error("invalid like content");
+            const cacheKey = getCacheKey(user_id);
+            const cached = yield redis_1.default.get(cacheKey);
+            if (cached) {
+                const parsed = JSON.parse(cached); // return hasil cache
+                const updated = parsed.map((thread) => {
+                    if (thread.id === thread_id) {
+                        return Object.assign(Object.assign({}, thread), { likes_count: Math.max(thread.likes_count - 1, 0), isLiked: false });
+                    }
+                    return thread;
+                });
+                yield redis_1.default.set(cacheKey, JSON.stringify(updated), "EX", 60);
+            }
             return;
         }
         catch (err) {
