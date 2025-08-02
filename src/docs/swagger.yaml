@@ -4,11 +4,18 @@ info:
   version: 1.0.0
 servers:
   - url: http://localhost:3000
+tags:
+  - name: Authentificate
+  - name: Threads
+  - name: Reply
+  - name: Profile
+  - name: follows
+  - name: Like/Unlike
 paths:
   /api/v1/auth/login:
     post:
       tags:
-        - default
+        - Authentificate
       summary: Login User
       requestBody:
         content:
@@ -26,7 +33,7 @@ paths:
   /api/v1/auth/register:
     post:
       tags:
-        - default
+        - Authentificate
       summary: Register User
       requestBody:
         content:
@@ -43,10 +50,20 @@ paths:
           description: Successful response
           content:
             application/json: {}
+  /api/v1/auth:
+    get:
+      tags:
+        - Authentificate
+      summary: Request Token
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
   /api/v1/logout:
     get:
       tags:
-        - default
+        - Authentificate
       summary: Logout User
       responses:
         '200':
@@ -56,7 +73,7 @@ paths:
   /api/v1/thread:
     get:
       tags:
-        - default
+        - Threads
       summary: Get All Threads
       parameters:
         - name: limit
@@ -72,7 +89,7 @@ paths:
   /api/v1/auth/thread:
     post:
       tags:
-        - default
+        - Threads
       summary: Add New-Threads
       requestBody:
         content:
@@ -94,18 +111,8 @@ paths:
   /api/v1/thread/image:
     get:
       tags:
-        - default
+        - Threads
       summary: Get Image in Thread
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-  /api/v1/thread/user:
-    get:
-      tags:
-        - default
-      summary: Get Content in Thread
       responses:
         '200':
           description: Successful response
@@ -114,8 +121,18 @@ paths:
   /api/v1/thread/9:
     get:
       tags:
-        - default
+        - Threads
       summary: Get detail Thread By Id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/thread/user:
+    get:
+      tags:
+        - Threads
+      summary: Get Content in Thread
       responses:
         '200':
           description: Successful response
@@ -124,7 +141,7 @@ paths:
   /api/v1/reply:
     post:
       tags:
-        - default
+        - Reply
       summary: Add New-Reply
       requestBody:
         content:
@@ -151,7 +168,7 @@ paths:
             application/json: {}
     get:
       tags:
-        - default
+        - Reply
       summary: Get All Replies in Thread
       parameters:
         - name: thread_id
@@ -172,7 +189,7 @@ paths:
   /api/v1/myProfile/edit:
     put:
       tags:
-        - default
+        - Profile
       summary: Edit Profile
       requestBody:
         content:
@@ -201,7 +218,7 @@ paths:
   /api/v1/search:
     get:
       tags:
-        - default
+        - Profile
       summary: Search User by name or username
       parameters:
         - name: keyword
@@ -217,7 +234,7 @@ paths:
   /api/v1/recomendation:
     get:
       tags:
-        - default
+        - Profile
       summary: Get Recomendations User
       responses:
         '200':
@@ -227,7 +244,7 @@ paths:
   /api/v1/follows:
     get:
       tags:
-        - default
+        - follows
       summary: Get Followers or Following
       parameters:
         - name: type
@@ -243,7 +260,7 @@ paths:
             application/json: {}
     post:
       tags:
-        - default
+        - follows
       summary: Follow User
       requestBody:
         content:
@@ -259,7 +276,7 @@ paths:
             application/json: {}
     delete:
       tags:
-        - default
+        - follows
       summary: UnFollow User
       responses:
         '200':
@@ -269,7 +286,7 @@ paths:
   /api/v1/thread/like/1:
     post:
       tags:
-        - default
+        - Like/Unlike
       summary: Like Thread
       requestBody:
         content:
@@ -285,7 +302,7 @@ paths:
   /api/v1/thread/unLike/1:
     delete:
       tags:
-        - default
+        - Like/Unlike
       summary: unLike Thread
       responses:
         '200':
@@ -295,7 +312,7 @@ paths:
   /api/v1/reply/like/9:
     post:
       tags:
-        - default
+        - Like/Unlike
       summary: Like Reply
       requestBody:
         content: {}
@@ -307,8 +324,8 @@ paths:
   /api/v1/reply/unLike/9:
     delete:
       tags:
-        - default
-      summary: New Request
+        - Like/Unlike
+      summary: UnLike Reply
       responses:
         '200':
           description: Successful response

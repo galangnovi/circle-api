@@ -8,6 +8,7 @@ export async function myProfile(user_id:number) {
                 username:true,
                 full_name:true,
                 photo_profile:true,
+                cover_photo:true,
                 bio:true,
                 email:true,
                 following: {select: {
@@ -29,6 +30,7 @@ export async function myProfile(user_id:number) {
         where: { following_id: user_id },
         });
 
+        
         return {
         ...profile,
         followingCount,
@@ -51,9 +53,10 @@ export async function editProfile(user_id:number, email:string, username:string,
         let coverPhoto
         if(!cover_Photo) {
             coverPhoto = profileData.cover_photo
-        } else {Photo = cover_Photo} 
-        
+        } else {coverPhoto = cover_Photo} 
 
+        
+        
         const editProfile = await prisma.users.update({
             where: {id:user_id},
             data : {
@@ -65,7 +68,6 @@ export async function editProfile(user_id:number, email:string, username:string,
                 cover_photo: coverPhoto
             }
         })
-
         return editProfile
     }   catch (err:any) {throw new Error(err.message || "Gagal Edit profile")}
 }

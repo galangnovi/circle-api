@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { recomendationUser, searchUser } from "../services/user";
+import { verifyToken } from "../utils/jwt-utils";
 
 
 export const handlerSearchuser = async (req:Request, res:Response) =>{
@@ -46,4 +47,27 @@ export const handlerRecomendation = async (req:Request, res:Response) => {
             message: err.message || "Failed to fetch user data. Please try again later.",
             });
     }
+}
+
+export const handlerisuserActive = async(req:Request, res: Response) =>{
+        try {
+    const token = req.cookies.token;
+    if (!token) return res.json(null);
+
+    const userToken = verifyToken(token); // asumsi ini tidak throw error jika token valid
+    const userSession = (req as any).session?.user;
+
+    // Jika session tidak ada atau tidak valid
+    if (!userSession || !userSession.user_id) {
+      return res.json(null);
+    }
+
+    // Bandingkan ID dari token dan session
+    const isMatch = userToken.id === userSession.user_id;
+
+    return res.json(isMatch ? token : null);
+  } catch (error) {
+    console.error("Error in handlerisuserActive:", error);
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 }

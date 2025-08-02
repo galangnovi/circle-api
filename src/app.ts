@@ -27,7 +27,7 @@ const io = new Server(httpServer, {
 })
 
 
-// Setup swagger docs at /docs
+
 setupSwagger(app);
 
 app.use(express.json())
@@ -42,8 +42,8 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    secure: false, // set true kalau pakai HTTPS
-    maxAge: 1000 * 60 * 60 * 2, // 2 jam
+    secure: false, 
+    maxAge: 1000 * 60 * 60 * 2, 
   },
 }));
 
@@ -55,10 +55,10 @@ app.use("/api/v1", like)
 app.use("/api/v1", follows)
 app.use("/api/v1", search)
 
-// / 👇 Serve file statis dari src/uploads
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Notify all clients when a thread is created
+
 export const notifyNewThread = (thread: any) => {
   io.emit('new-thread', thread)
 }
