@@ -34,6 +34,7 @@ const handlerLoginUser = (req, res) => __awaiter(void 0, void 0, void 0, functio
             sameSite: "none",
             maxAge: 1000 * 60 * 60 * 2,
         });
+        console.log("Session disimpan:", req.session.user);
         return res.status(200).json({
             code: 200,
             status: "success",

@@ -27,6 +27,7 @@ export const handlerLoginUser = async (req:Request, res:Response) =>{
             sameSite: "none",    
             maxAge: 1000 * 60 * 60 * 2,
         });
+        console.log("Session disimpan:", (req as any).session.user)
     
         return res.status(200).json({
             code: 200,
