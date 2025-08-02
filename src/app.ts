@@ -42,7 +42,7 @@ app.use(cookieParser())
 app.use(
   cookieSession({
     name: "session",
-    secret: process.env.SESSION_SECRET!,
+    keys: [process.env.SESSION_SECRET!],
     maxAge: 1000 * 60 * 60 * 2,
     sameSite: "none",
     secure: true,

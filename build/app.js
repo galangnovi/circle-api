@@ -37,7 +37,7 @@ app.use(cors_1.default);
 app.use((0, cookie_parser_1.default)());
 app.use((0, cookie_session_1.default)({
     name: "session",
-    secret: process.env.SESSION_SECRET,
+    keys: [process.env.SESSION_SECRET],
     maxAge: 1000 * 60 * 60 * 2,
     sameSite: "none",
     secure: true,
