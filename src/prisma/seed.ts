@@ -7,11 +7,12 @@ async function password(pass:any) {
 
 async function main() {
 
-    await prisma.users.deleteMany()
+    
     await prisma.threads.deleteMany()
     await prisma.following.deleteMany()
     await prisma.likes.deleteMany()
     await prisma.replies.deleteMany()
+    await prisma.users.deleteMany()
 
     const user1=   await prisma.users.create({
         data: { username:"Galang",full_name:"Galang Anggara", email:"galang@gmail.com", password: await password("123456"), bio:"aku suka makan"}, 

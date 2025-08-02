@@ -20,7 +20,7 @@ model users {
   full_name     String
   email         String   @unique
   password      String
-  photo_profile String   @default("default.jpg")
+  photo_profile String   @default("https://res.cloudinary.com/dhd8czwky/image/upload/v1754142705/default_xumlki.webp")
   cover_photo   String?
   bio           String   @default("")
   created_at    DateTime @default(now())
