@@ -10,10 +10,8 @@ export async function seeAllTreads (user_id:number, limit:number) {
 
         const cached = await redis.get(cacheKey);
         if (cached) {
-            console.log("pakai redis");
             return JSON.parse(cached); // return hasil cache
         }
-        console.log("tidak pakai redis");
         const threads = await prisma.threads.findMany({
             orderBy:{
                 created_at : "desc",

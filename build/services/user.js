@@ -50,7 +50,7 @@ function searchUser(user_id, identifier) {
                     id: user.id,
                     username: user.username,
                     name: user.full_name,
-                    avatar: `http://localhost:3000/uploads/${encodeURIComponent(user.photo_profile)}`,
+                    avatar: user.photo_profile,
                     follower: user._count.followers,
                     is_following: is_following
                 };
@@ -102,7 +102,7 @@ function recomendationUser(user_id) {
                     id: user.id,
                     username: user.username,
                     name: user.full_name,
-                    avatar: `http://localhost:3000/uploads/${encodeURIComponent(user.photo_profile)}`,
+                    avatar: user.photo_profile,
                     is_following: is_following
                 };
             });

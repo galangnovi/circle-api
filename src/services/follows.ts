@@ -28,7 +28,7 @@ export async function getFollower (user_id:number) {
         id: follower.follower.id,
         username: follower.follower.username,
         name: follower.follower.full_name,
-        avatar: `http://localhost:3000/uploads/${encodeURIComponent(follower.follower.photo_profile)}`,
+        avatar: follower.follower.photo_profile,
         is_following: follower.follower.followers.length > 0, 
         }));
 

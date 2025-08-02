@@ -43,7 +43,7 @@ export async function searchUser (user_id:number, identifier:string) {
             id: user.id,
             username: user.username,
             name: user.full_name,
-            avatar: `http://localhost:3000/uploads/${encodeURIComponent(user.photo_profile)}`,
+            avatar: user.photo_profile,
             follower: user._count.followers,
             is_following: is_following
         };
@@ -95,7 +95,7 @@ export async function recomendationUser(user_id:number) {
             id: user.id,
             username: user.username,
             name: user.full_name,
-            avatar: `http://localhost:3000/uploads/${encodeURIComponent(user.photo_profile)}`,
+            avatar: user.photo_profile,
             is_following: is_following
         };
             })   

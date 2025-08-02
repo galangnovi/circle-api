@@ -26,10 +26,8 @@ function seeAllTreads(user_id, limit) {
             const cacheKey = getCacheKey(user_id);
             const cached = yield redis_1.default.get(cacheKey);
             if (cached) {
-                console.log("pakai redis");
                 return JSON.parse(cached); // return hasil cache
             }
-            console.log("tidak pakai redis");
             const threads = yield client_1.prisma.threads.findMany({
                 orderBy: {
                     created_at: "desc",
