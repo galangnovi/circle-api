@@ -54,18 +54,16 @@ export const handlerisuserActive = async(req:Request, res: Response) =>{
     const token = req.cookies.token;
     if (!token) return res.json(null);
 
-    const userToken = verifyToken(token); // asumsi ini tidak throw error jika token valid
     const userSession = (req as any).session?.user;
 
-    // Jika session tidak ada atau tidak valid
-    if (!userSession || !userSession.user_id) {
+   if (!userSession || !token) {
       return res.json(null);
     }
 
-    // Bandingkan ID dari token dan session
-    const isMatch = userToken.id === userSession.user_id;
-
-    return res.json(isMatch ? token : null);
+    return res.json({
+      token,
+      user: userSession
+    });
   } catch (error) {
     console.error("Error in handlerisuserActive:", error);
     return res.status(401).json({ message: "Unauthorized" });

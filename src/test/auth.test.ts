@@ -17,7 +17,7 @@ app.use(
   })
 );
 
-// Routes manual
+
 app.post("/auth/login", handlerLoginUser);
 app.post("/auth/register", handlerRegisterUser);
 app.post("/logout", logout);

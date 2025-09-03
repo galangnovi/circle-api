@@ -4,11 +4,11 @@ import session from "express-session";
 import bodyParser from "body-parser";
 import { handlerLoginUser } from "../controllers/auth-login";
 
-// Jika pakai Prisma, tambahkan juga prisma dan hash password jika diperlukan
+
 import { prisma } from "../prisma/client";
 import bcrypt from "bcrypt";
 
-// Buat app manual
+
 const app = express();
 app.use(bodyParser.json());
 app.use(session({
@@ -17,7 +17,7 @@ app.use(session({
   saveUninitialized: false,
 }));
 
-// Route login manual
+
 app.post("/login", handlerLoginUser);
 
 beforeAll(async () => {
