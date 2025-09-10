@@ -128,6 +128,7 @@ export async function imageThreads(user_id:number) {
                 created_at : "desc",
             },
             select: {
+                id:true,
                 user: {
                     select: {
                         id:true,
